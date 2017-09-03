@@ -200,7 +200,8 @@ public interface StatusBarPhoneModule {
             KeyguardIndicationController keyguardIndicationController,
             Lazy<NotificationShadeDepthController> notificationShadeDepthController,
             DismissCallbackRegistry dismissCallbackRegistry,
-            StatusBarTouchableRegionManager statusBarTouchableRegionManager) {
+            StatusBarTouchableRegionManager statusBarTouchableRegionManager,
+            FlashlightController flashlightController) {
         return new StatusBar(
                 context,
                 notificationsController,
@@ -279,6 +280,7 @@ public interface StatusBarPhoneModule {
                 keyguardIndicationController,
                 dismissCallbackRegistry,
                 notificationShadeDepthController,
-                statusBarTouchableRegionManager);
+                statusBarTouchableRegionManager,
+                flashlightController);
     }
 }
