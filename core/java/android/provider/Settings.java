@@ -5011,6 +5011,12 @@ public final class Settings {
         public static final String STATUSBAR_CLOCK_DATE_POSITION = "statusbar_clock_date_position";
 
         /**
+         * Whether to show charging animation on lock screen
+         * @hide
+         */
+        public static final String LOCKSCREEN_CHARGING_ANIMATION = "lockscreen_charging_animation";
+
+        /**
          * Lockscreen media art
          * @hide
          */
