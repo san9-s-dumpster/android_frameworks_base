@@ -61,6 +61,7 @@ import com.android.systemui.statusbar.policy.ConfigurationController;
 import com.android.systemui.statusbar.policy.DataSaverController;
 import com.android.systemui.statusbar.policy.NetworkController;
 import com.android.systemui.statusbar.policy.PulseController;
+import com.android.systemui.statusbar.policy.TaskHelper;
 import com.android.systemui.util.leak.LeakDetector;
 
 import java.util.concurrent.Executor;
@@ -250,5 +251,11 @@ public class DependencyProvider {
     @Provides
     public PulseController providePulseController(Context context, @Main Handler mainHandler, @Background Executor backgroundExecutor) {
         return new PulseControllerImpl(context, mainHandler, backgroundExecutor);
+    }
+
+    @Singleton
+    @Provides
+    public TaskHelper provideTaskHelper(Context context) {
+        return new TaskHelper(context);
     }
 }
