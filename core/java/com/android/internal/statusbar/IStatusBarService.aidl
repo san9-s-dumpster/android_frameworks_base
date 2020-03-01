@@ -172,4 +172,6 @@ interface IStatusBarService
      * flash
      */
     void toggleCameraFlash();
+
+    void killForegroundApp();
 }
