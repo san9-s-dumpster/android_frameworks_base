@@ -168,7 +168,7 @@ public class Utils {
 
 
     public static void takeScreenshot(boolean full) {
-        IWindowManager wm = WindowManagerGlobal.getWindowManagerService();
+        final IWindowManager wm = WindowManagerGlobal.getWindowManagerService();
         try {
             wm.sendCustomAction(new Intent(full? INTENT_SCREENSHOT : INTENT_REGION_SCREENSHOT));
         } catch (RemoteException e) {
@@ -502,5 +502,14 @@ public class Utils {
                 context.getSystemService(Context.AUDIO_SERVICE);
         audioMan.setRingerModeInternal(ringerMode);
         Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
+    }
+
+    public static void showPowerMenu() {
+        final IWindowManager wm = WindowManagerGlobal.getWindowManagerService();
+        try {
+            wm.showGlobalActions();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 }
