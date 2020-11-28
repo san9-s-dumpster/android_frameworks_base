@@ -24,6 +24,7 @@ import com.android.systemui.statusbar.notification.interruption.BypassHeadsUpNot
 import com.android.systemui.plugins.FalsingManager;
 import com.android.systemui.broadcast.BroadcastDispatcher;
 import com.android.systemui.statusbar.policy.RemoteInputQuickSettingsDisabler;
+import com.android.systemui.statusbar.policy.TaskHelper;
 import com.android.systemui.statusbar.notification.row.NotificationGutsManager;
 import com.android.systemui.statusbar.NotificationRemoteInputManager;
 import com.android.systemui.statusbar.notification.logging.NotificationLogger;
@@ -46,6 +47,7 @@ import com.android.systemui.bubbles.BubbleController;
 import com.android.systemui.statusbar.phone.NotificationGroupManager;
 import com.android.systemui.statusbar.notification.VisualStabilityManager;
 import com.android.systemui.statusbar.policy.DeviceProvisionedController;
+import com.android.systemui.statusbar.policy.FlashlightController;
 import com.android.systemui.statusbar.NavigationBarController;
 import com.android.systemui.assist.AssistManager;
 import com.android.systemui.statusbar.phone.BiometricUnlockController;
@@ -182,15 +184,17 @@ public class StatusBarGoogle extends StatusBar {
             KeyguardIndicationController keyguardIndicationController,
             DismissCallbackRegistry dismissCallbackRegistry,
             Lazy<NotificationShadeDepthController> notificationShadeDepthControllerLazy,
-            StatusBarTouchableRegionManager statusBarTouchableRegionManager) {
+            StatusBarTouchableRegionManager statusBarTouchableRegionManager,
+            FlashlightController flashlightController,
+            TaskHelper taskHelper) {
 
-        super(context, 
+        super(context,
             notificationsController,
             lightBarController,
             autoHideController,
             keyguardUpdateMonitor,
             statusBarIconController,
-            pulseExpansionHandler, 
+            pulseExpansionHandler,
             notificationWakeUpCoordinator,
             keyguardBypassController,
             keyguardStateController,
@@ -261,7 +265,9 @@ public class StatusBarGoogle extends StatusBar {
             keyguardIndicationController,
             dismissCallbackRegistry,
             notificationShadeDepthControllerLazy,
-            statusBarTouchableRegionManager);
+            statusBarTouchableRegionManager,
+            flashlightController,
+            taskHelper);
         }
 
     @Override
