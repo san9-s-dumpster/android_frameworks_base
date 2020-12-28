@@ -203,7 +203,7 @@ public class VolumeDialogImpl implements VolumeDialog,
 
         public void update() {
             mVolumeAlignment = Settings.System.getIntForUser(mContext.getContentResolver(), Settings.System.VOLUME_PANEL_ALIGNMENT, 1, UserHandle.USER_CURRENT);
-            setPaddingLocation();
+            setPaddingLocation(mWindow, mMusicText, mDialogView);
             updateRowsH(getActiveRow());
         }
     }
@@ -402,7 +402,7 @@ public class VolumeDialogImpl implements VolumeDialog,
             addExistingRows();
         }
 
-        setPaddingLocation();
+        setPaddingLocation(mWindow, mMusicText, mDialogView);
 
         updateRowsH(getActiveRow());
         initRingerH();
@@ -428,52 +428,73 @@ public class VolumeDialogImpl implements VolumeDialog,
         return mPaddingTop;
     }
 
-    private void setPaddingLocation() {
+    private void setPaddingLocation(Window window, MusicText music, ViewGroup dialog) {
 
-      WindowManager.LayoutParams lp = mWindow.getAttributes();
-      RelativeLayout.LayoutParams mlp = (RelativeLayout.LayoutParams) mMusicText.getLayoutParams();
+      if (window != null) {
 
-      if(!isAudioPanelOnLeftSide()){
-        switch (mVolumeAlignment) {
-            case 0:
-                lp.gravity = Gravity.RIGHT | Gravity.TOP;
-                break;
-            case 1:
-            default:
-                lp.gravity = Gravity.RIGHT | Gravity.CENTER_VERTICAL;
-                break;
-            case 2:
-                lp.gravity = Gravity.RIGHT | Gravity.BOTTOM;
-                break;
-        }
-        mlp.addRule(RelativeLayout.START_OF, mVolumeDialogID);
-        mlp.removeRule(RelativeLayout.END_OF);
-      } else {
-        switch (mVolumeAlignment) {
-            case 0:
-                lp.gravity = Gravity.LEFT | Gravity.TOP;
-                break;
-            case 1:
-            default:
-                lp.gravity = Gravity.LEFT | Gravity.CENTER_VERTICAL;
-                break;
-            case 2:
-                lp.gravity = Gravity.LEFT | Gravity.BOTTOM;
-                break;
-        }
-        mlp.addRule(RelativeLayout.END_OF, mVolumeDialogID);
-        mlp.removeRule(RelativeLayout.START_OF);
+            Window mWindow = window;
+            WindowManager.LayoutParams lp = mWindow.getAttributes();
+            switch (mVolumeAlignment) {
+                case 0:
+                    lp.gravity = (mLeftVolumeRocker ? Gravity.LEFT : Gravity.RIGHT) | Gravity.TOP;
+                    break;
+                case 1:
+                default:
+                    lp.gravity = (mLeftVolumeRocker ? Gravity.LEFT : Gravity.RIGHT) | Gravity.CENTER_VERTICAL;
+                    break;
+                case 2:
+                    lp.gravity = (mLeftVolumeRocker ? Gravity.LEFT : Gravity.RIGHT) | Gravity.BOTTOM;
+                    break;
+          }
+          mWindow.setAttributes(lp);
       }
 
-      mDialogView.setPaddingRelative( ((int) mContext.getResources().getDimension(R.dimen.volume_dialog_panel_transparent_padding_right)),
-                                      (updateVolumePanelPaddingTop() * 3),
-                                      ((int) mContext.getResources().getDimension(R.dimen.volume_dialog_panel_transparent_padding_left)),
-                                      (updateVolumePanelPaddingBottom() * 3));
+      if (music != null) {
 
-      mMusicText.setPaddingRelative(0 ,(updateVolumePanelPaddingTop() * 3),0,(updateVolumePanelPaddingBottom() * 3));
-      mMusicText.setLayoutParams(mlp);
-      mWindow.setAttributes(lp);
+            MusicText mMusicText = music;
+            RelativeLayout.LayoutParams mlp = (RelativeLayout.LayoutParams) mMusicText.getLayoutParams();
+            switch (mVolumeAlignment) {
+                case 0:
+                    mlp.setGravity(Gravity.TOP);
+                    break;
+                case 1:
+                default:
+                    mlp.setGravity(Gravity.CENTER_VERTICAL);
+                    break;
+                case 2:
+                    mlp.setGravity(Gravity.BOTTOM);
+                    break;
+            }
+           mlp.setMargins(0,
+                         (updateVolumePanelPaddingTop() * 3),
+                         0,
+                         (updateVolumePanelPaddingBottom() * 3));
+           mMusicText.setLayoutParams(mlp);
+       }
 
+
+        if (dialog != null) {
+
+            ViewGroup mDialogView = dialog;
+            RelativeLayout.LayoutParams dlp = (RelativeLayout.LayoutParams) mDialogView.getLayoutParams();
+            switch (mVolumeAlignment) {
+                case 0:
+                    dlp.setGravity(Gravity.TOP);
+                    break;
+                case 1:
+                default:
+                    dlp.setGravity(Gravity.CENTER_VERTICAL);
+                    break;
+                case 2:
+                    dlp.setGravity(Gravity.BOTTOM);
+                    break;
+            }
+            dlp.setMargins(0,
+                          (updateVolumePanelPaddingTop() * 3),
+                          0,
+                          (updateVolumePanelPaddingBottom() * 3));
+            mDialogView.setLayoutParams(dlp);
+        }
     }
 
     public void initText (NotificationMediaManager mediaManager) {
@@ -1017,7 +1038,7 @@ public class VolumeDialogImpl implements VolumeDialog,
     }
 
     protected void updateRingerH() {
-        if (mRinger != null && mState != null) {
+        if (mState != null) {
             final StreamState ss = mState.states.get(AudioManager.STREAM_RING);
             if (ss == null) {
                 return;
