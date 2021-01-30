@@ -23,6 +23,7 @@ import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -252,11 +253,24 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
                    Dependency.get(ActivityStarter.class).postStartActivityDismissingKeyguard(new Intent(android.provider.Settings.ACTION_SETTINGS), 0);
                 }
             });
+        } if (mOPFooterView.getSettingsButton() != null) {
+            mOPFooterView.getSettingsButton().setOnLongClickListener(new View.OnLongClickListener() {
+                public void onLongClick(View v) {
+                   startShapeShifter();
+                }
+            });
         } if (mOPFooterView.getEditButton() != null) {
             mOPFooterView.getEditButton().setOnClickListener(view ->
                 Dependency.get(ActivityStarter.class).postQSRunnableDismissingKeyguard(() ->
                         showEdit(view)));
         }
+    }
+
+    private void startShapeShifter() {
+        Intent nIntent = new Intent(Intent.ACTION_MAIN);
+        nIntent.setClassName("com.android.settings",
+            "com.android.settings.Settings$ShapeShifterSettingsActivity");
+        mActivityStarter.startActivity(nIntent, true);
     }
 
     protected QSTileLayout createRegularTileLayout() {
