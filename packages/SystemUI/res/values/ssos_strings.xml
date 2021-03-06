@@ -192,4 +192,7 @@
     <string name="empty_app_killed">App</string>
 
     <string name="app_picker_dialog_title">Select an app</string>
+
+    <!-- Biometric Dialog - Use Face -->
+    <string name="biometric_dialog_button_use_face">Use Face</string>
 </resources>
