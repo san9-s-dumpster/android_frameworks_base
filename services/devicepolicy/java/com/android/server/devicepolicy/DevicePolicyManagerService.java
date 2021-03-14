@@ -7952,29 +7952,6 @@ public class DevicePolicyManagerService extends BaseIDevicePolicyManager {
      */
     @Override
     public void setScreenCaptureDisabled(ComponentName who, boolean disabled, boolean parent) {
-        if (!mHasFeature) {
-            return;
-        }
-        Objects.requireNonNull(who, "ComponentName is null");
-        final int userHandle = UserHandle.getCallingUserId();
-        synchronized (getLockObject()) {
-            ActiveAdmin ap = getActiveAdminForCallerLocked(who,
-                    DeviceAdminInfo.USES_POLICY_PROFILE_OWNER, parent);
-            if (parent) {
-                enforceProfileOwnerOfOrganizationOwnedDevice(ap);
-            }
-            if (ap.disableScreenCapture != disabled) {
-                ap.disableScreenCapture = disabled;
-                saveSettingsLocked(userHandle);
-                final int affectedUserId = parent ? getProfileParentId(userHandle) : userHandle;
-                updateScreenCaptureDisabled(affectedUserId, disabled);
-            }
-        }
-        DevicePolicyEventLogger
-                .createEvent(DevicePolicyEnums.SET_SCREEN_CAPTURE_DISABLED)
-                .setAdmin(who)
-                .setBoolean(disabled)
-                .write();
     }
 
     /**
@@ -7983,40 +7960,10 @@ public class DevicePolicyManagerService extends BaseIDevicePolicyManager {
      */
     @Override
     public boolean getScreenCaptureDisabled(ComponentName who, int userHandle, boolean parent) {
-        if (!mHasFeature) {
-            return false;
-        }
-        synchronized (getLockObject()) {
-            if (parent) {
-                final ActiveAdmin ap = getActiveAdminForCallerLocked(who,
-                        DeviceAdminInfo.USES_POLICY_ORGANIZATION_OWNED_PROFILE_OWNER, parent);
-                enforceProfileOwnerOfOrganizationOwnedDevice(ap);
-            }
-            if (who != null) {
-                ActiveAdmin admin = getActiveAdminUncheckedLocked(who, userHandle, parent);
-                return (admin != null) && admin.disableScreenCapture;
-            }
-
-            final int affectedUserId = parent ? getProfileParentId(userHandle) : userHandle;
-            List<ActiveAdmin> admins = getActiveAdminsForAffectedUserLocked(affectedUserId);
-            for (ActiveAdmin admin: admins) {
-                if (admin.disableScreenCapture) {
-                    return true;
-                }
-            }
-            return false;
-        }
+        return false;
     }
 
     private void updateScreenCaptureDisabled(int userHandle, boolean disabled) {
-        mPolicyCache.setScreenCaptureAllowed(userHandle, !disabled);
-        mHandler.post(() -> {
-            try {
-                mInjector.getIWindowManager().refreshScreenCaptureDisabled(userHandle);
-            } catch (RemoteException e) {
-                Log.w(LOG_TAG, "Unable to notify WindowManager.", e);
-            }
-        });
     }
 
     /**
