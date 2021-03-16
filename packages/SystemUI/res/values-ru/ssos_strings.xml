@@ -69,9 +69,80 @@
     <string name="status_bar_data_saver">Экономия трафика</string>
     <string name="status_bar_vpn">VPN</string>
     <string name="status_bar_roaming">Роуминг</string>
-    <!-- Screenshot Delete Toast -->
-    <string name="delete_screenshot_toast">Скриншот удален</string>
-    <!-- Heads up snooze toast -->
-    <string name="heads_up_snooze_message_one_minute"><xliff:g id="string">%s</xliff:g> - Всплывающие уведомления выключены на 1 минуту.</string>
-    <string name="heads_up_snooze_message"><xliff:g id="string">%1$s</xliff:g> - Всплывающие уведомления выключены на <xliff:g id="number">%1$d</xliff:g> минут(ы).</string>
+    <!-- PowerShare QS tile -->
+    <string name="quick_settings_powershare_label">Wireless PowerShare</string>
+    <string name="quick_settings_powershare_off_powersave_label">Wireless PowerShare выключен\nЭкономия энергии</string>
+    <string name="quick_settings_powershare_off_low_battery_label">Wireless PowerShare выключен\nНизкий заряд батареи</string>
+    <string name="quick_settings_powershare_enabled_label">Wireless PowerShare включен</string>
+
+    <!-- Label for area where tiles can be added to the qs panel -->
+    <string name="drag_or_tap_to_add_tiles">Удерживайте и перетащите или нажмите для добавления плиток</string>
+
+    <!-- Label for header of customize QS -->
+    <string name="drag_or_tap_to_rearrange_tiles">Удерживайте и перетащите, чтобы изменить порядок или нажмите для удаления</string>
+
+    <string name="screenrecord_stopdot_label">Показывать кнопку остановки\nУдерживайте для перемещения</string>
+    <string name="screenrecord_lowquality_label">Меньшее качество для меньшего размера файла</string>
+
+    <!-- Powermenu items -->
+    <string name="global_action_restart_advanced">Расширенные</string>
+    <string name="global_action_restart_recovery">Рекавери</string>
+    <string name="global_action_restart_bootloader">Загрузчик</string>
+    <string name="global_action_restart_ui">Системный интерфейс</string>
+
+    <!-- Sound Search tile -->
+    <string name="quick_settings_sound_search">Поиск музыки</string>
+    <string name="quick_settings_sound_search_no_app">Извините, но это не работает без приложения для поиска музыки.</string>
+
+    <!-- Music tile -->
+    <string name="quick_settings_music_label">Музыка</string>
+    <string name="quick_settings_music_play">Воспроизвести</string>
+    <string name="quick_settings_music_pause">Приостановить</string>
+
+    <!-- Name of the additional status bar icons also exposed with SystemUI Tuner -->
+    <string name="status_bar_battery_prefs">Батарея</string>
+
+    <!-- Headphones Buddy -->
+    <string name="hp_buddy">Баланс звука в наушниках</string>
+    <string name="hp_buddy_left">Левый канал</string>
+    <string name="hp_buddy_right">Правый канал</string>
+    <string name="hp_buddy_center">Оба канала</string>
+    <string name="hp_buddy_not_connected">Подключите наушники</string>
+
+    <!-- Status bar network traffic monitor strings -->
+    <string name="kilobitspersecond_short">кб/с</string>
+    <string name="megabitspersecond_short">Мб/s</string>
+    <string name="gigabitspersecond_short">Гб/s</string>
+    <string name="kilobytespersecond_short">кБ/s</string>
+    <string name="megabytespersecond_short">МБ/s</string>
+    <string name="gigabytespersecond_short">ГБ/s</string>
+
+    <string name="lockscreen_default">По умолчанию</string>
+    <string name="lockscreen_hidden">Нет</string>
+
+    <!-- Ambient Music Ticker -->
+    <string name="ambientmusic_songinfo" formatted="false">%s от %s</string>
+
+    <!-- Smart Pixels QS Tile -->
+    <string name="quick_settings_smart_pixels">Умные пиксели</string>
+    <string name="quick_settings_smart_pixels_on_power_save">Автоматическое включение Умных пикселей</string>
+
+    <!-- Gaming mode -->
+    <string name="gaming_mode_not_enabled">Игровой режим отключен в настройках</string>
+    <string name="quick_settings_gaming_mode_label">Игровой режим</string>
+
+    <!-- DC Dimming -->
+    <!-- <string name="quick_settings_dc_dimming_label">DC Dimming</string> -->
+    <!-- <string name="quick_settings_dc_brightness_mode">Brightness mode</string> -->
+    <!-- <string name="quick_settings_dc_full_auto">Auto mode</string> -->
+
+    <!-- Data usage info -->
+    <string name="usage_data">использовано</string>
+
+    <!-- Reader mode QS tile -->
+    <string name="quick_settings_reading_mode">Режим чтения</string>
+    <string name="accessibility_quick_settings_reading_mode_on">Режим чтения вкл.</string>
+    <string name="accessibility_quick_settings_reading_mode_off">Режим чтения выкл.</string>
+    <string name="accessibility_quick_settings_reading_mode_changed_on">Режим чтения включен.</string>
+    <string name="accessibility_quick_settings_reading_mode_changed_off">Режим чтения выключен.</string>
 </resources>
