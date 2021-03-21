@@ -152,8 +152,6 @@ interface IStatusBarService
      */
     void suppressAmbientDisplay(boolean suppress);
 
-    void toggleCameraFlash();
-
     /**
      * Starts the default assistant app.
      */

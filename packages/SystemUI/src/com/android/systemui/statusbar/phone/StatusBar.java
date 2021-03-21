@@ -245,7 +245,6 @@ import com.android.systemui.statusbar.policy.ConfigurationController.Configurati
 import com.android.systemui.statusbar.policy.DeviceProvisionedController;
 import com.android.systemui.statusbar.policy.DeviceProvisionedController.DeviceProvisionedListener;
 import com.android.systemui.statusbar.policy.ExtensionController;
-import com.android.systemui.statusbar.policy.FlashlightController;
 import com.android.systemui.statusbar.policy.KeyguardStateController;
 import com.android.systemui.statusbar.policy.KeyguardUserSwitcher;
 import com.android.systemui.statusbar.policy.NetworkController;
@@ -674,7 +673,6 @@ public class StatusBar extends SystemUI implements DemoMode,
         }
     };
 
-    private FlashlightController mFlashlightController;
     private KeyguardUserSwitcher mKeyguardUserSwitcher;
     private final UserSwitcherController mUserSwitcherController;
     private final NetworkController mNetworkController;
@@ -2409,19 +2407,6 @@ public class StatusBar extends SystemUI implements DemoMode,
         }
     }
 
-    @Override
-    public void toggleCameraFlash() {
-        if (DEBUG) {
-            Log.d(TAG, "Toggling camera flashlight");
-        }
-        if (mFlashlightController != null) {
-            mFlashlightController.initFlashLight();
-            if (mFlashlightController.hasFlashlight() && mFlashlightController.isAvailable()) {
-                mFlashlightController.setFlashlight(!mFlashlightController.isEnabled());
-            }
-        }
-    }
-
     void makeExpandedVisible(boolean force) {
         if (SPEW) Log.d(TAG, "Make expanded visible: expanded visible=" + mExpandedVisible);
         if (!force && (mExpandedVisible || !mCommandQueue.panelsEnabled())) {
@@ -3088,9 +3073,6 @@ public class StatusBar extends SystemUI implements DemoMode,
             pw.print("  "); pw.print(entry.getKey()); pw.print("="); pw.println(entry.getValue());
         }
 
-        if (mFlashlightController != null) {
-            mFlashlightController.dump(fd, pw, args);
-        }
     }
 
     static void dumpBarTransitions(PrintWriter pw, String var, BarTransitions transitions) {
