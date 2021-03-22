@@ -224,7 +224,7 @@ public final class LineageButtons {
                 Utils.launchCamera(context);
                 break;
             case 4: // Flashlight
-                Utils.toggleCameraFlash(false/*no proximity check*/);
+                Utils.toggleCameraFlash(/*false no proximity check*/);
                 break;
             case 5: // Application
                 Utils.launchApp(context, leftEdge, isVerticalSwipe);
