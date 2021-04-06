@@ -70,6 +70,7 @@ public class QSContainerImpl extends FrameLayout implements Tunable {
     private View mQSPanelContainer;
 
     private View mBackground;
+    private View mBackgroundGradient;
     private View mStatusBarBackground;
 
     private int mSideMargins;
@@ -97,6 +98,7 @@ public class QSContainerImpl extends FrameLayout implements Tunable {
         mDragHandle = findViewById(R.id.qs_drag_handle_view);
         mBackground = findViewById(R.id.quick_settings_background);
         mStatusBarBackground = findViewById(R.id.quick_settings_status_bar_background);
+        mBackgroundGradient = findViewById(R.id.quick_settings_gradient_view);
         updateResources();
         mHeader.getHeaderQsPanel().setMediaVisibilityChangedListener((visible) -> {
             if (mHeader.getHeaderQsPanel().isShown()) {
@@ -144,6 +146,7 @@ public class QSContainerImpl extends FrameLayout implements Tunable {
     @Override
     protected void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+        setBackgroundGradientVisibility(newConfig);
         updateResources();
         mSizePoint.set(0, 0); // Will be retrieved on next measure pass.
     }
@@ -213,6 +216,7 @@ public class QSContainerImpl extends FrameLayout implements Tunable {
         final boolean disabled = (state2 & DISABLE2_QUICK_SETTINGS) != 0;
         if (disabled == mQsDisabled) return;
         mQsDisabled = disabled;
+        setBackgroundGradientVisibility(getResources().getConfiguration());
         mBackground.setVisibility(mQsDisabled ? View.GONE : View.VISIBLE);
     }
 
@@ -235,8 +239,10 @@ public class QSContainerImpl extends FrameLayout implements Tunable {
 
         if (mStatusBarBgTransparent) {
             mStatusBarBackground.setBackgroundColor(Color.TRANSPARENT);
+            mBackgroundGradient.setVisibility(View.INVISIBLE);
         } else {
             mStatusBarBackground.setBackgroundColor(Color.BLACK);
+            mBackgroundGradient.setVisibility(View.VISIBLE);
         }
     }
 
@@ -286,6 +292,16 @@ public class QSContainerImpl extends FrameLayout implements Tunable {
                 + mHeader.getHeight();
     }
 
+    private void setBackgroundGradientVisibility(Configuration newConfig) {
+        if (newConfig.orientation == ORIENTATION_LANDSCAPE) {
+            mBackgroundGradient.setVisibility(View.INVISIBLE);
+            mStatusBarBackground.setVisibility(View.INVISIBLE);
+        } else {
+            mBackgroundGradient.setVisibility(mQsDisabled ? View.INVISIBLE : View.VISIBLE);
+            mStatusBarBackground.setVisibility(View.VISIBLE);
+        }
+    }
+
     public void setExpansion(float expansion) {
         mQsExpansion = expansion;
         mDragHandle.setAlpha(1.0f - expansion);
@@ -295,7 +311,8 @@ public class QSContainerImpl extends FrameLayout implements Tunable {
     private void updatePaddingsAndMargins() {
         for (int i = 0; i < getChildCount(); i++) {
             View view = getChildAt(i);
-            if (view == mStatusBarBackground || view == mQSCustomizer) {
+            if (view == mStatusBarBackground || view == mBackgroundGradient
+                    || view == mQSCustomizer) {
                 // Some views are always full width
                 continue;
             }
