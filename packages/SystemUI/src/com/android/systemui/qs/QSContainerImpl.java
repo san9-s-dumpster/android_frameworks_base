@@ -292,6 +292,7 @@ public class QSContainerImpl extends FrameLayout implements Tunable {
                 + mHeader.getHeight();
     }
 
+    @Override
     private void setBackgroundGradientVisibility(Configuration newConfig) {
         if (newConfig.orientation == ORIENTATION_LANDSCAPE) {
             mBackgroundGradient.setVisibility(View.INVISIBLE);
