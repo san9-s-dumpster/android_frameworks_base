@@ -305,7 +305,7 @@ public class QSContainerImpl extends FrameLayout {
         if (mLandscape || mHideQSBlackGradient) {
             mBackgroundGradient.setVisibility(View.INVISIBLE);
         } else {
-            mBackgroundGradient.setVisibility((mQsDisabled || mQsBackgroundAlpha) ? View.INVISIBLE : View.VISIBLE);
+            mBackgroundGradient.setVisibility((mQsDisabled) ? View.INVISIBLE : View.VISIBLE);
         }
         mStatusBarBackground.setVisibility(shouldHideStatusbar ? View.INVISIBLE : View.VISIBLE);
     }
