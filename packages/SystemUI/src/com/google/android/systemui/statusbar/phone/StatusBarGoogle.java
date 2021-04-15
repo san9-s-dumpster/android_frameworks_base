@@ -86,6 +86,7 @@ import com.android.systemui.statusbar.KeyguardIndicationController;
 import com.android.systemui.keyguard.DismissCallbackRegistry;
 import com.android.systemui.statusbar.NotificationShadeDepthController;
 import com.android.systemui.statusbar.phone.StatusBarTouchableRegionManager;
+import com.android.systemui.biometrics.FODCircleViewImpl;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -182,15 +183,17 @@ public class StatusBarGoogle extends StatusBar {
             KeyguardIndicationController keyguardIndicationController,
             DismissCallbackRegistry dismissCallbackRegistry,
             Lazy<NotificationShadeDepthController> notificationShadeDepthControllerLazy,
-            StatusBarTouchableRegionManager statusBarTouchableRegionManager) {
+            StatusBarTouchableRegionManager statusBarTouchableRegionManager,
+            FlashlightController flashlightController,
+            FODCircleViewImpl fodCircleViewImpl) {
 
-        super(context, 
+        super(context,
             notificationsController,
             lightBarController,
             autoHideController,
             keyguardUpdateMonitor,
             statusBarIconController,
-            pulseExpansionHandler, 
+            pulseExpansionHandler,
             notificationWakeUpCoordinator,
             keyguardBypassController,
             keyguardStateController,
@@ -261,7 +264,9 @@ public class StatusBarGoogle extends StatusBar {
             keyguardIndicationController,
             dismissCallbackRegistry,
             notificationShadeDepthControllerLazy,
-            statusBarTouchableRegionManager);
+            statusBarTouchableRegionManager,
+            flashlightController,
+            fodCircleViewImpl);
         }
 
     @Override
