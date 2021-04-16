@@ -111,7 +111,6 @@ public:
             bool darken = channelSum < (128 * 3);
 
             // outline
-            gDrawTextBlobMode = DrawTextBlobMode::HctOutline;
             Paint outlinePaint(paint);
             simplifyPaint(darken ? SK_ColorWHITE : SK_ColorBLACK, &outlinePaint);
             outlinePaint.setStyle(SkPaint::kStrokeAndFill_Style);
@@ -119,14 +118,11 @@ public:
                                bounds.mRight, bounds.mBottom, totalAdvance);
 
             // inner
-            gDrawTextBlobMode = DrawTextBlobMode::HctInner;
             Paint innerPaint(paint);
             simplifyPaint(darken ? SK_ColorBLACK : SK_ColorWHITE, &innerPaint);
             innerPaint.setStyle(SkPaint::kFill_Style);
             canvas->drawGlyphs(glyphFunc, glyphCount, innerPaint, x, y, bounds.mLeft, bounds.mTop,
                                bounds.mRight, bounds.mBottom, totalAdvance);
-
-            gDrawTextBlobMode = DrawTextBlobMode::Normal;
         } else {
             // standard draw path
             canvas->drawGlyphs(glyphFunc, glyphCount, paint, x, y, bounds.mLeft, bounds.mTop,
